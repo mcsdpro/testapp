@@ -1,0 +1,25 @@
+workflows:
+  ios-build-no-sign:
+    name: iOS Build (No Signing)
+    instance_type: mac_mini
+    environment:
+      flutter: stable
+      xcode: latest
+    scripts:
+      - name: Install Flutter dependencies
+        script: flutter pub get
+      - name: Build iOS .ipa without signing
+        script: |
+          flutter build ios --release --no-codesign
+          xcodebuild -workspace ios/Runner.xcworkspace \
+                     -scheme Runner \
+                     -configuration Release \
+                     -sdk iphoneos \
+                     -archivePath build/Runner.xcarchive \
+                     archive
+          xcodebuild -exportArchive \
+                     -archivePath build/Runner.xcarchive \
+                     -exportOptionsPlist ios/ExportOptions.plist \
+                     -exportPath build/ipa
+    artifacts:
+      - build/ipa/*.ipa
