@@ -1,7 +1,6 @@
 workflows:
   ios-build-no-sign:
     name: iOS Build (No Signing)
-    instance_type: mac_mini
     environment:
       flutter: stable
       xcode: latest
