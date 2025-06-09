@@ -8,4 +8,4 @@ workflows:
       - flutter pub get
       - flutter build ipa --release --no-codesign
     artifacts:
-      - build/ipa/*.ipa
+      - build/ios/ipa/*.ipa
